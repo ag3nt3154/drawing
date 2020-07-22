@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>
+            Google
+        </title>
+    </head>
+    <style>
+
+    </style>
+    <body>
+        <div id='container'>
+
+        </div>
+        <div id="buttons">
+            <button id="sizing">
+
+            </button>
+    
+            <button id="reset">
+    
+            </button>
+        </div>
+        
+
+
+
+        
+    </body>
+
+    <script>
+    
+    
+    
+        console.log('hello world');
+        const container = document.querySelector('#container')
+
+        container.style.cssText = "display: flex;" 
+                                + "background-color: white;"
+                                + "flex-wrap: wrap;"
+                                + "border: solid black 1px;";
+        
+        
+        let num_cells = 16;
+        gridCreation(num_cells);
+
+        function gridCreation(num_cells){
+            let total_width = window.innerWidth;
+
+            for (i = 0; i < num_cells * num_cells; i++) {
+                let cell = document.createElement('div');
+                cell.setAttribute("class", "cell");
+                cell.setAttribute("id", i);
+
+
+                cell.style.width = (100 / num_cells) + "%";
+                console.log(cell.style.width)
+                cell.style.height = "0";
+                cell.style.paddingBottom = cell.style.width;
+
+                container.appendChild(cell)
+            }
+
+            const cells = document.querySelectorAll('.cell');
+            let cursor_color = 0;
+
+            cells.forEach((cell) => {
+                cell.addEventListener('mouseenter', function (e) {
+                    // console.log(e.target)
+                    cursor_color = chameleon(e.target, cursor_color)
+                });
+            });
+        }
+
+        let cells = document.querySelectorAll('.cell');
+
+        function chameleon(cell, cursor_color) {
+
+            cursor_color ++;
+            let cell_color = cursor_color;
+            cell.style.backgroundColor = "hsl(" + cell_color + ", 100%, 50%)";
+
+
+            if (cursor_color > 360) {
+                cursor_color = 0;
+            }
+
+            return cursor_color
+        }
+        
+        function reset(cells) {
+            cells.forEach((cell) => {
+                cell.style.backgroundColor = "white";
+                
+            })
+        }
+        
+        function deleteGrid(container) {
+            let first = container.firstElementChild; 
+            while (first) { 
+                first.remove(); 
+                first = container.firstElementChild; 
+            }
+            
+        }
+
+        const sizing_btn = document.querySelector('#sizing');
+        sizing_btn.textContent = "Change Grid Density";
+        sizing_btn.style.width = "200px";
+        const reset_btn = document.querySelector('#reset');
+        reset_btn.textContent = "Reset";
+        reset_btn.style.width = sizing_btn.style.width;
+
+        const btns = document.querySelector("#buttons");
+        btns.style.cssText = "text-align: center;";
+        
+        reset_btn.addEventListener(
+            'click', function(e) {
+                cells = document.querySelectorAll('.cell');
+                reset(cells);
+            }
+        );
+
+        sizing_btn.addEventListener(
+            'click', function(e) {
+                num_cells = prompt("Enter new grid density. (Numeric only)");
+                deleteGrid(container);
+                console.log(container.firstElementChild);
+                gridCreation(num_cells);
+                console.log(container.firstElementChild);
+            }
+        );
+
+        btns.appendChild(sizing_btn);
+        btns.appendChild(reset_btn);
+
+    
+    </script>
+</html>
