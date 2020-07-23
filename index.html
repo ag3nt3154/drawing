@@ -9,25 +9,22 @@
 
     </style>
     <body>
-        
-        <div id="buttons">
-            <button id="sizing">
-
-            </button>
+        <div id="outer_container"> 
+            <div id="buttons">
+                <button id="sizing">
     
-            <button id="reset">
+                </button>
+        
+                <button id="reset">
+        
+                </button>
+            </div>
+            <div >
+                <div id='container'>
     
-            </button>
-        </div>
-
-        <div id='container'>
-
-        </div>
-        
-
-
-
-        
+                </div>
+            </div>
+        </div>        
     </body>
 
     <script>
@@ -35,12 +32,34 @@
     
     
         console.log('hello world');
+
+        const sizing_btn = document.querySelector('#sizing');
+        sizing_btn.textContent = "Change Grid Density";
+        sizing_btn.style.width = "200px";
+        sizing_btn.style.fontSize = "16px";
+
+        const reset_btn = document.querySelector('#reset');
+        reset_btn.textContent = "Reset";
+        reset_btn.style.width = sizing_btn.style.width;
+        reset_btn.style.fontSize = sizing_btn.style.fontSize;
+
+        const btns = document.querySelector("#buttons");
+        btns.style.cssText = "text-align: center;";
+
         const container = document.querySelector('#container')
+
+        
+
+        
 
         container.style.cssText = "display: flex;" 
                                 + "background-color: white;"
                                 + "flex-wrap: wrap;"
-                                + "border: solid black 1px;";
+                                + "border: solid black 1px;"
+                                + "text-align: center";
+
+
+                                
         
         
         let num_cells = 16;
@@ -56,14 +75,21 @@
 
 
                 cell.style.width = (100 / num_cells) + "%";
-                console.log(cell.style.width)
+                
                 cell.style.height = "0";
                 cell.style.paddingBottom = cell.style.width;
 
+                
+
                 container.appendChild(cell)
+
+                
             }
 
             const cells = document.querySelectorAll('.cell');
+
+            
+            
             let cursor_color = 0;
 
             cells.forEach((cell) => {
@@ -106,15 +132,7 @@
             
         }
 
-        const sizing_btn = document.querySelector('#sizing');
-        sizing_btn.textContent = "Change Grid Density";
-        sizing_btn.style.width = "200px";
-        const reset_btn = document.querySelector('#reset');
-        reset_btn.textContent = "Reset";
-        reset_btn.style.width = sizing_btn.style.width;
-
-        const btns = document.querySelector("#buttons");
-        btns.style.cssText = "text-align: center;";
+        
         
         reset_btn.addEventListener(
             'click', function(e) {
